@@ -1,10 +1,10 @@
 import React from 'react';
-
+import SideBar from '../../components/Side-bar';
 
 const AdminDashboard = () => {
     return (
         <div className="adminDashboard-page">
-            <h1>Admin Dashboard</h1>
+            <SideBar />
         </div>
     );
 };

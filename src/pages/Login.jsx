@@ -25,7 +25,25 @@ const Login = () => {
                 console.log(message);
                 console.log(user);
                 login(user);
-                navigate('/admindashboard');
+
+
+                switch (user.role_id) {
+                    case 1:
+                        navigate('/admindashboard');
+                        break;
+                    case 2:
+                        navigate('/managerdashboard');
+                        break;
+                    case 3:
+                        navigate('/sellerdashboard');
+                        break;
+                    case 4:
+                        navigate('/operativedashboard');
+                        break;
+                    default:
+                        navigate('/');
+                        break;
+                }
             } else {
                 setError(message);
             }
@@ -34,7 +52,6 @@ const Login = () => {
             setError('Error interno del servidor');
         }
     };
-
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
