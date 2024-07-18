@@ -6,6 +6,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import SellerDashboard from './pages/seller/SellerDashboard';
 import OperativeDashboard from './pages/operative/OperativeDashboard';
 import ManagerDashboard from './pages/manager/ManagerDashboard';
+import UsersCrud from './pages/admin/UsersCrud';
 
 
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/sellerdashboard" element={<SellerDashboard />} />
             <Route path="/operativedashboard" element={<OperativeDashboard />} />
             <Route path="/managerdashboard" element={<ManagerDashboard />} />
+            <Route path="/UsersCrud" element={<UsersCrud />} />
           </Routes>
         </BrowserRouter>
       </div>

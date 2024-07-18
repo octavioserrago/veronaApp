@@ -59,7 +59,7 @@ const Login = () => {
                 <h1 className="text-2xl font-bold text-center">Login</h1>
                 <form onSubmit={handlerLogin} className="space-y-4">
                     <div className="flex flex-col">
-                        <label htmlFor="email" className="mb-1 font-medium text-gray-700">Email address</label>
+                        <label htmlFor="email" className="mb-1 font-medium text-gray-700">Email</label>
                         <input
                             type="email"
                             id="email"
@@ -71,7 +71,7 @@ const Login = () => {
                         />
                     </div>
                     <div className="flex flex-col">
-                        <label htmlFor="password" className="mb-1 font-medium text-gray-700">Password</label>
+                        <label htmlFor="password" className="mb-1 font-medium text-gray-700">Contraseña</label>
                         <input
                             type="password"
                             id="password"
@@ -83,8 +83,8 @@ const Login = () => {
                         />
                     </div>
                     {error && <div className="p-2 text-red-600 bg-red-100 border border-red-400 rounded">{error}</div>}
-                    <button type="submit" className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600">
-                        Submit
+                    <button type="submit" className="w-full py-2 text-white bg-yellow-400 rounded-md hover:bg-yellow-500">
+                        Iniciar Sesion
                     </button>
                 </form>
             </div>
