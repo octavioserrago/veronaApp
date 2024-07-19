@@ -1,0 +1,40 @@
+{
+    "materiales": [
+        {
+            "nombre": "Granito",
+            "colores": [
+                "Blanco Dallas",
+                "Negro Absoluto",
+                "Verde Ubatuba",
+                "Rojo Balmoral"
+            ]
+        },
+        {
+            "nombre": "Mármol",
+            "colores": [
+                "Carrara",
+                "Crema Marfil",
+                "Emperador Dark",
+                "Calacatta"
+            ]
+        },
+        {
+            "nombre": "Silestone",
+            "colores": [
+                "Blanco Zeus",
+                "Cemento Spa",
+                "Coral Clay",
+                "Marengo"
+            ]
+        },
+        {
+            "nombre": "Purastone",
+            "colores": [
+                "Blanco Puro",
+                "Arena",
+                "Gris Acero",
+                "Negro Eclipse"
+            ]
+        }
+    ]
+}

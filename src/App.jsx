@@ -7,6 +7,7 @@ import SellerDashboard from './pages/seller/SellerDashboard';
 import OperativeDashboard from './pages/operative/OperativeDashboard';
 import ManagerDashboard from './pages/manager/ManagerDashboard';
 import UsersCrud from './pages/admin/UsersCrud';
+import NewSale from './pages/NewSale';
 
 
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/operativedashboard" element={<OperativeDashboard />} />
             <Route path="/managerdashboard" element={<ManagerDashboard />} />
             <Route path="/UsersCrud" element={<UsersCrud />} />
+            <Route path="/NewSale" element={<NewSale />} />
           </Routes>
         </BrowserRouter>
       </div>
