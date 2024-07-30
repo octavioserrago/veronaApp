@@ -13,7 +13,7 @@ const roleMapping = {
 const UsersCrud = () => {
     const [users, setUsers] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const [editUser, setEditUser] = useState(null); // Estado para almacenar el usuario a editar
+    const [editUser, setEditUser] = useState(null); 
     const [newUser, setNewUser] = useState({
         name: '',
         password: '',

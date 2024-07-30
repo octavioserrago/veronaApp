@@ -18,11 +18,11 @@ const CardUSD = ({ title, compra, venta, fechaActualizacion }) => {
     const { formattedDate, formattedTime } = formatDateTime(fechaActualizacion);
 
     return (
-        <div className="bg-gray-100 shadow-md rounded-lg p-4 mb-4 w-56">
-            <h2 className="text-xl font-semibold mb-2 text-green-600">{title}</h2>
-            <p className="text-gray-700">Compra: ${compra}</p>
-            <p className="text-gray-700">Venta: ${venta}</p>
-            <p className="text-gray-500 text-sm">Actualización: {formattedDate} {formattedTime}</p>
+        <div className="bg-gray-100 shadow-md rounded-lg p-2 mb-2 w-40">
+            <h2 className="text-lg font-semibold mb-1 text-green-600">{title}</h2>
+            <p className="text-gray-700 text-sm">Compra: ${compra}</p>
+            <p className="text-gray-700 text-sm">Venta: ${venta}</p>
+            <p className="text-gray-500 text-xs">Actualización: {formattedDate} {formattedTime}</p>
         </div>
     );
 };

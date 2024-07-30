@@ -11,6 +11,7 @@ import NewSale from './pages/NewSale';
 
 
 
+
 function App() {
   return (
     <AuthProvider>
@@ -24,6 +25,7 @@ function App() {
             <Route path="/managerdashboard" element={<ManagerDashboard />} />
             <Route path="/UsersCrud" element={<UsersCrud />} />
             <Route path="/NewSale" element={<NewSale />} />
+
           </Routes>
         </BrowserRouter>
       </div>

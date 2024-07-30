@@ -1,44 +1,135 @@
 import React, { useState, useEffect } from 'react';
 import SideBar from '../components/Side-bar';
-import materialesData from '../materiales.json';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const NewSale = () => {
+    const { branchId } = useAuth();
     const [formData, setFormData] = useState({
-        cliente: '',
+        customer: '',
         material: '',
         color: '',
-        detalle: '',
-        metodoPago: '',
-        descuento: '',
-        sena: '',
-        montoTotal: ''
+        detail: '',
+        payment_method: '',
+        total_amount: '',
+        branch_id: branchId || ''
     });
 
     const [colores, setColores] = useState([]);
-    const [materiales, setMateriales] = useState(materialesData.materiales);
+    const [branches, setBranches] = useState([]);
+
+    const materiales = [
+        {
+            nombre: "Granito",
+            colores: [
+                "Blanco Dallas",
+                "Negro Absoluto",
+                "Verde Ubatuba",
+                "Rojo Balmoral"
+            ]
+        },
+        {
+            nombre: "Mármol",
+            colores: [
+                "Carrara",
+                "Crema Marfil",
+                "Emperador Dark",
+                "Calacatta"
+            ]
+        },
+        {
+            nombre: "Silestone",
+            colores: [
+                "Blanco Zeus",
+                "Cemento Spa",
+                "Coral Clay",
+                "Marengo"
+            ]
+        },
+        {
+            nombre: "Purastone",
+            colores: [
+                "Blanco Puro",
+                "Arena",
+                "Gris Acero",
+                "Negro Eclipse"
+            ]
+        }
+    ];
 
     useEffect(() => {
-        // Actualizar colores cuando cambie el material seleccionado
         const selectedMaterial = materiales.find(mat => mat.nombre === formData.material);
         if (selectedMaterial) {
             setColores(selectedMaterial.colores);
+            if (!selectedMaterial.colores.includes(formData.color)) {
+                setFormData(prevFormData => ({ ...prevFormData, color: selectedMaterial.colores[0] || '' }));
+            }
         } else {
             setColores([]);
+            setFormData(prevFormData => ({ ...prevFormData, color: '' }));
         }
     }, [formData.material, materiales]);
 
+    useEffect(() => {
+        const fetchBranches = async () => {
+            try {
+                const response = await axios.get('http://localhost:8888/branches');
+                setBranches(response.data.results);
+            } catch (error) {
+                console.error('Error fetching branches:', error);
+            }
+        };
+
+        fetchBranches();
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
+        setFormData(prevFormData => {
+            const updatedFormData = { ...prevFormData, [name]: value };
+
+            if (name === 'material') {
+                const selectedMaterial = materiales.find(mat => mat.nombre === value);
+                if (selectedMaterial) {
+                    updatedFormData.color = selectedMaterial.colores[0] || '';
+                } else {
+                    updatedFormData.color = '';
+                }
+            }
+
+            return updatedFormData;
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Lógica para enviar la información de la nueva venta
-        console.log('Nueva venta:', formData);
+        const dataToSubmit = {
+            ...formData,
+            branch_id: formData.branch_id || branchId || ''
+        };
+
+        console.log('Data to submit:', dataToSubmit);
+
+        try {
+            const response = await axios.post('http://localhost:8888/sales', dataToSubmit);
+            if (response.data.success) {
+                alert('Venta creada correctamente');
+                setFormData({
+                    customer: '',
+                    material: '',
+                    color: '',
+                    detail: '',
+                    payment_method: '',
+                    total_amount: '',
+                    branch_id: branchId || ''
+                });
+            } else {
+                alert('Error al crear la venta');
+            }
+        } catch (error) {
+            console.error('Error creando la venta:', error);
+            alert('Error al intentar crear la venta');
+        }
     };
 
     return (
@@ -52,8 +143,8 @@ const NewSale = () => {
                             <label className="block text-sm font-medium text-gray-700">Cliente</label>
                             <input
                                 type="text"
-                                name="cliente"
-                                value={formData.cliente}
+                                name="customer"
+                                value={formData.customer}
                                 onChange={handleChange}
                                 className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm"
                                 required
@@ -84,7 +175,6 @@ const NewSale = () => {
                                 onChange={handleChange}
                                 className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm"
                                 required
-                                disabled={!colores.length}
                             >
                                 <option value="">Selecciona un color</option>
                                 {colores.map(color => (
@@ -98,8 +188,8 @@ const NewSale = () => {
                             <label className="block text-sm font-medium text-gray-700">Detalle</label>
                             <input
                                 type="text"
-                                name="detalle"
-                                value={formData.detalle}
+                                name="detail"
+                                value={formData.detail}
                                 onChange={handleChange}
                                 className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm"
                                 required
@@ -107,47 +197,48 @@ const NewSale = () => {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Método de Pago</label>
-                            <input
-                                type="text"
-                                name="metodoPago"
-                                value={formData.metodoPago}
+                            <select
+                                name="payment_method"
+                                value={formData.payment_method}
                                 onChange={handleChange}
                                 className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm"
                                 required
-                            />
+                            >
+                                <option value="">Selecciona un método</option>
+                                <option value="cash">Efectivo</option>
+                                <option value="debit">Tarjeta de débito</option>
+                                <option value="transfer">Transferencia</option>
+                                <option value="credit">Tarjeta de crédito</option>
+                            </select>
                         </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Descuento</label>
-                            <input
-                                type="number"
-                                name="descuento"
-                                value={formData.descuento}
-                                onChange={handleChange}
-                                className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm"
-                                required
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Seña</label>
-                            <input
-                                type="number"
-                                name="sena"
-                                value={formData.sena}
-                                onChange={handleChange}
-                                className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm"
-                                required
-                            />
-                        </div>
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Monto Total</label>
                             <input
                                 type="number"
-                                name="montoTotal"
-                                value={formData.montoTotal}
+                                name="total_amount"
+                                value={formData.total_amount}
                                 onChange={handleChange}
                                 className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm"
                                 required
                             />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700">Sucursal</label>
+                            <select
+                                name="branch_id"
+                                value={formData.branch_id}
+                                onChange={handleChange}
+                                className="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm"
+                                required
+                            >
+                                <option value="">Selecciona una sucursal</option>
+                                {branches.map(branch => (
+                                    <option key={branch.branch_id} value={branch.branch_id}>
+                                        {branch.branch_name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div>
                             <button
