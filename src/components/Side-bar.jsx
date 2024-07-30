@@ -5,6 +5,7 @@ import { MdOutlineSell } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import { HiMenu } from 'react-icons/hi';
+import { LiaCashRegisterSolid } from "react-icons/lia";
 
 const SideBar = () => {
     const { logueado, roleId, logout } = useAuth();
@@ -69,6 +70,9 @@ const SideBar = () => {
                                     <Sidebar.Item icon={HiCreditCard}>
                                         <Link className="nav-link" to="/EmployeeStats">Verificar Ing.Credito</Link>
                                     </Sidebar.Item>
+                                    <Sidebar.Item icon={LiaCashRegisterSolid}>
+                                        <Link className="nav-link" to="/IngresarDinero">Ingresar dinero de venta</Link>
+                                    </Sidebar.Item>
                                 </>
                             )}
                             {roleId === 3 && (
@@ -81,6 +85,9 @@ const SideBar = () => {
                                     </Sidebar.Item>
                                     <Sidebar.Item icon={HiCreditCard}>
                                         <Link className="nav-link" to="/EmployeeStats">Verificar Ing.Credito</Link>
+                                    </Sidebar.Item>
+                                    <Sidebar.Item icon={LiaCashRegisterSolid}>
+                                        <Link className="nav-link" to="/IngresarDinero">Ingresar dinero de venta</Link>
                                     </Sidebar.Item>
                                 </>
                             )}

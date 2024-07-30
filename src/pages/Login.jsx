@@ -26,7 +26,6 @@ const Login = () => {
                 console.log(user);
                 login(user);
 
-
                 switch (user.role_id) {
                     case 1:
                         navigate('/admindashboard');
@@ -84,7 +83,7 @@ const Login = () => {
                     </div>
                     {error && <div className="p-2 text-red-600 bg-red-100 border border-red-400 rounded">{error}</div>}
                     <button type="submit" className="w-full py-2 text-white bg-yellow-400 rounded-md hover:bg-yellow-500">
-                        Iniciar Sesion
+                        Iniciar Sesión
                     </button>
                 </form>
             </div>

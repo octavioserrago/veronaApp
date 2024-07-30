@@ -8,9 +8,7 @@ import OperativeDashboard from './pages/operative/OperativeDashboard';
 import ManagerDashboard from './pages/manager/ManagerDashboard';
 import UsersCrud from './pages/admin/UsersCrud';
 import NewSale from './pages/NewSale';
-
-
-
+import MoneyEntries from "./pages/MoneyEntries";
 
 function App() {
   return (
@@ -25,7 +23,7 @@ function App() {
             <Route path="/managerdashboard" element={<ManagerDashboard />} />
             <Route path="/UsersCrud" element={<UsersCrud />} />
             <Route path="/NewSale" element={<NewSale />} />
-
+            <Route path="/IngresarDinero" element={<MoneyEntries />} />
           </Routes>
         </BrowserRouter>
       </div>
