@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Logo from '/src/assets/verona-escrito.png'; // Asegúrate de que la ruta sea correcta
 
 const Login = () => {
     const { login } = useAuth();
@@ -55,7 +56,9 @@ const Login = () => {
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-                <h1 className="text-2xl font-bold text-center">Login</h1>
+                <div className="text-center">
+                    <img src={Logo} alt="Logo" className="mx-auto mb-4 pl-8" />
+                </div>
                 <form onSubmit={handlerLogin} className="space-y-4">
                     <div className="flex flex-col">
                         <label htmlFor="email" className="mb-1 font-medium text-gray-700">Email</label>
