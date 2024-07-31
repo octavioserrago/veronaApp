@@ -1,4 +1,3 @@
-// MoneyEntriesWithSales.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
@@ -6,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 const MoneyEntriesWithSales = () => {
     const [amount, setAmount] = useState('');
     const [saleId, setSaleId] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('Efectivo'); // Estado para el método de pago
     const [showSuccess, setShowSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
 
@@ -19,16 +19,33 @@ const MoneyEntriesWithSales = () => {
         setSaleId(event.target.value);
     };
 
+    const handlePaymentMethodChange = (event) => {
+        setPaymentMethod(event.target.value);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            await axios.post('http://localhost:8888/moneyEntries', {
+            const url = paymentMethod === 'Crédito'
+                ? 'http://localhost:8888/creditVerifications'
+                : 'http://localhost:8888/moneyEntries';
+
+            const payload = {
                 amount,
                 sale_id: saleId,
                 branch_id: branchId,
-                user_id: userId
-            });
+                user_id: userId,
+                payment_method: paymentMethod // Enviar el método de pago a la API
+            };
+
+            // Ajustar el payload para el método de pago "Crédito"
+            if (paymentMethod === 'Crédito') {
+                payload.amount_charged = amount; // Enviar amount como amount_charged
+                delete payload.amount; // Eliminar amount para no enviarlo innecesariamente
+            }
+
+            await axios.post(url, payload);
 
             setSuccessMessage('¡Dinero ingresado correctamente!');
             setShowSuccess(true);
@@ -39,6 +56,7 @@ const MoneyEntriesWithSales = () => {
 
             setAmount('');
             setSaleId('');
+            setPaymentMethod('Efectivo'); // Restablecer el método de pago
 
         } catch (error) {
             console.error('Error al ingresar dinero:', error.response ? error.response.data : error.message);
@@ -84,6 +102,21 @@ const MoneyEntriesWithSales = () => {
                         onChange={handleAmountChange}
                         required
                     />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="paymentMethodSelect" className="block text-gray-700 text-sm font-semibold mb-2">Método de Pago</label>
+                    <select
+                        id="paymentMethodSelect"
+                        className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        value={paymentMethod}
+                        onChange={handlePaymentMethodChange}
+                        required
+                    >
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Transferencia">Transferencia</option>
+                        <option value="Débito">Débito</option>
+                        <option value="Crédito">Crédito</option>
+                    </select>
                 </div>
                 <button
                     type="submit"
