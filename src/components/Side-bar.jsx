@@ -84,7 +84,7 @@ const SideBar = () => {
                                         <Link className="nav-link" to="/NewSale">Crear Venta</Link>
                                     </Sidebar.Item>
                                     <Sidebar.Item icon={HiCreditCard}>
-                                        <Link className="nav-link" to="/EmployeeStats">Verificar Ing.Credito</Link>
+                                        <Link className="nav-link" to="/VerificarIngresosCredito">Verificar Ing.Credito</Link>
                                     </Sidebar.Item>
                                     <Sidebar.Item icon={LiaCashRegisterSolid}>
                                         <Link className="nav-link" to="/IngresarDinero">Ingresar dinero de venta</Link>

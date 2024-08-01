@@ -3,6 +3,7 @@ import axios from 'axios';
 import SideBar from '../../components/Side-bar';
 import CardUSD from '../../components/Card-USD';
 import SalesTable from '../../components/SalesTable';
+import FeedbackMessage from '../../components/FeedbackMessage'; // Importa FeedbackMessage
 
 const SellerDashboard = () => {
     const [dolarOficial, setDolarOficial] = useState({ compra: '', venta: '', fechaActualizacion: '' });
@@ -10,6 +11,7 @@ const SellerDashboard = () => {
     const [branches, setBranches] = useState([]);
     const [sales, setSales] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [feedback, setFeedback] = useState({ message: '', type: '' });
 
     const fetchBranches = async () => {
         try {
@@ -25,9 +27,17 @@ const SellerDashboard = () => {
             const response = await axios.get('http://localhost:8888/sales', {
                 params: { search: searchQuery }
             });
-            setSales(response.data.results);
+            const results = response.data.results;
+            setSales(results);
+
+            if (results.length === 0) {
+                setFeedback({ message: 'No se encontraron resultados.', type: 'error' });
+            } else {
+                setFeedback({ message: '', type: '' }); // Clear feedback message
+            }
         } catch (error) {
             console.error('Error fetching sales:', error);
+            setFeedback({ message: 'Error al buscar ventas.', type: 'error' });
         }
     };
 
@@ -67,6 +77,10 @@ const SellerDashboard = () => {
         fetchSales(searchTerm);
     };
 
+    const handleFeedbackClose = () => {
+        setFeedback({ message: '', type: '' });
+    };
+
     return (
         <div className="flex flex-col md:flex-row">
             <SideBar />
@@ -99,6 +113,14 @@ const SellerDashboard = () => {
                         </div>
                     </form>
                 </div>
+
+                {/* Mensaje de feedback */}
+                <FeedbackMessage
+                    message={feedback.message}
+                    type={feedback.type}
+                    onClose={handleFeedbackClose}
+                />
+
                 <div className="ml-16 md:ml-0 flex flex-col md:flex-row md:space-x-4 mb-4">
                     <CardUSD
                         title="Dólar Oficial"

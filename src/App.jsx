@@ -9,6 +9,7 @@ import ManagerDashboard from './pages/manager/ManagerDashboard';
 import UsersCrud from './pages/admin/UsersCrud';
 import NewSale from './pages/NewSale';
 import MoneyEntries from "./pages/MoneyEntries";
+import VerificarIngresosCredito from "./pages/CreditVerifications"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/UsersCrud" element={<UsersCrud />} />
             <Route path="/NewSale" element={<NewSale />} />
             <Route path="/IngresarDinero" element={<MoneyEntries />} />
+            <Route path="/VerificarIngresosCredito" element={<VerificarIngresosCredito />} />
           </Routes>
         </BrowserRouter>
       </div>
