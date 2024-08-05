@@ -27,10 +27,7 @@ const MoneyEntriesWithSales = () => {
         event.preventDefault();
 
         try {
-            const url = paymentMethod === 'Crédito'
-                ? 'http://localhost:8888/creditVerifications'
-                : 'http://localhost:8888/moneyEntries';
-
+            const url = 'http://localhost:8888/moneyEntries';
             const payload = {
                 amount,
                 sale_id: saleId,
@@ -38,14 +35,7 @@ const MoneyEntriesWithSales = () => {
                 user_id: userId,
                 payment_method: paymentMethod
             };
-
-            if (paymentMethod === 'Crédito') {
-                payload.amount_charged = amount;
-                delete payload.amount;
-            }
-
             await axios.post(url, payload);
-
             setSuccessMessage('¡Dinero ingresado correctamente!');
             setShowSuccess(true);
 
@@ -61,6 +51,7 @@ const MoneyEntriesWithSales = () => {
             console.error('Error al ingresar dinero:', error.response ? error.response.data : error.message);
         }
     };
+
 
     return (
         <div className="container mx-auto px-4 py-6">

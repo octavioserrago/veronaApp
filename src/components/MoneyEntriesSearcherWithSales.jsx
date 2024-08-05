@@ -75,7 +75,7 @@ const MoneyEntriesSearcherWithSales = () => {
         <div className="container mx-auto px-4 py-6">
             <div className="bg-white p-8 rounded-lg shadow-lg">
                 <div className="mb-8">
-                    <h1 className="text-2xl font-bold text-blue-800 mb-6 text-center">Buscar ID de Venta y Entradas del Cliente</h1>
+                    <h1 className="text-2xl font-bold text-blue-700 mb-6 text-center">Buscar ID de Venta y Entradas del Cliente</h1>
                     <div className="flex flex-col items-center mb-6">
                         <label htmlFor="searchSaleId" className="block text-gray-800 text-lg font-semibold mb-3">ID de Venta</label>
                         <div className="flex w-full max-w-md">

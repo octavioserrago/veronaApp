@@ -10,6 +10,7 @@ import UsersCrud from './pages/admin/UsersCrud';
 import NewSale from './pages/NewSale';
 import MoneyEntries from "./pages/MoneyEntries";
 import VerificarIngresosCredito from "./pages/CreditVerifications"
+import ReceiptPage from './pages/ReceiptPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/NewSale" element={<NewSale />} />
             <Route path="/IngresarDinero" element={<MoneyEntries />} />
             <Route path="/VerificarIngresosCredito" element={<VerificarIngresosCredito />} />
+            <Route path="/Recibos" element={<ReceiptPage />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import { HiMenu } from 'react-icons/hi';
 import { LiaCashRegisterSolid } from "react-icons/lia";
+import { AiOutlineHome } from "react-icons/ai";
+import { IoReceiptSharp } from "react-icons/io5";
 
 const SideBar = () => {
     const { logueado, roleId, logout } = useAuth();
@@ -42,7 +44,7 @@ const SideBar = () => {
                         <Sidebar.ItemGroup>
                             {roleId === 1 && (
                                 <>
-                                    <Sidebar.Item icon={HiShieldCheck}>
+                                    <Sidebar.Item icon={AiOutlineHome}>
                                         <Link className="nav-link" to="/AdminDashboard">Home</Link>
                                     </Sidebar.Item>
                                     <Sidebar.Item icon={HiUser}>
@@ -55,7 +57,7 @@ const SideBar = () => {
                             )}
                             {roleId === 2 && (
                                 <>
-                                    <Sidebar.Item icon={HiOutlineUser}>
+                                    <Sidebar.Item icon={AiOutlineHome}>
                                         <Link className="nav-link" to="/ManagerPage">Home</Link>
                                     </Sidebar.Item>
                                     <Sidebar.Item icon={HiCash}>
@@ -77,7 +79,7 @@ const SideBar = () => {
                             )}
                             {roleId === 3 && (
                                 <>
-                                    <Sidebar.Item icon={HiUser}>
+                                    <Sidebar.Item icon={AiOutlineHome}>
                                         <Link className="nav-link" to="/sellerdashboard">Inicio</Link>
                                     </Sidebar.Item>
                                     <Sidebar.Item icon={MdOutlineSell}>
@@ -88,6 +90,9 @@ const SideBar = () => {
                                     </Sidebar.Item>
                                     <Sidebar.Item icon={LiaCashRegisterSolid}>
                                         <Link className="nav-link" to="/IngresarDinero">Ingresar dinero de venta</Link>
+                                    </Sidebar.Item>
+                                    <Sidebar.Item icon={IoReceiptSharp}>
+                                        <Link className="nav-link" to="/Recibos">Enviar Recibo</Link>
                                     </Sidebar.Item>
                                 </>
                             )}

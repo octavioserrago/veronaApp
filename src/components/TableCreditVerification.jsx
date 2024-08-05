@@ -13,13 +13,19 @@ const TableCreditVerifications = () => {
     }, [branchId]);
 
     const fetchCreditVerifications = async () => {
+        if (!branchId) {
+            console.error('branchId es necesario para realizar la solicitud');
+            return;
+        }
+
         try {
-            const response = await axios.get(`http://localhost:8888/creditVerifications?branch_id=${branchId}`);
+            const response = await axios.get(`http://localhost:8888/creditVerifications/findByBranchId/${branchId}`);
             setCreditVerifications(response.data.results);
         } catch (error) {
             console.error('Error al obtener las verificaciones de crédito:', error.response ? error.response.data : error.message);
         }
     };
+
 
     const deleteRecord = async (id) => {
         if (window.confirm('¿Estás seguro de que deseas eliminar esta verificación?')) {
@@ -38,7 +44,7 @@ const TableCreditVerifications = () => {
         const newRealAmount = prompt('Ingrese el nuevo monto real:');
         if (newRealAmount !== null && !isNaN(newRealAmount)) {
             try {
-                await axios.put('http://localhost:8888/creditVerifications/updateRealAmount', {
+                await axios.put(`http://localhost:8888/creditVerifications/updateRealAmount/${id}`, {
                     creditVerification_id: id,
                     real_amount: parseFloat(newRealAmount)
                 });
@@ -52,6 +58,7 @@ const TableCreditVerifications = () => {
             alert('Por favor, ingrese un monto válido.');
         }
     };
+
 
     return (
         <div className="container mx-auto px-4 py-6">
@@ -67,7 +74,7 @@ const TableCreditVerifications = () => {
                 </div>
             )}
 
-            <h1 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Verificaciones de Crédito</h1>
+            <h1 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Verificaciones de Crédito y Débito</h1>
 
             <div className="overflow-x-auto bg-white shadow-sm rounded-lg border border-gray-200">
                 <table className="min-w-full divide-y divide-gray-200">
